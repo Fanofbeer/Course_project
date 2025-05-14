@@ -1,0 +1,15 @@
+<form method="POST">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+
+    <div>
+        <label>ID пользователя:</label>
+        <input type="number" name="user_id" required>
+    </div>
+
+    <div>
+        <label>Сообщение:</label>
+        <textarea name="message" required rows="5"></textarea>
+    </div>
+
+    <button type="submit">Отправить</button>
+</form>

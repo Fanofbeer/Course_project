@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h1>Зарегистрированные пользователи</h1>
+    <a href="{{ url_for('admin_dashboard') }}">Назад</a>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>User ID</th>
+        </tr>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.user_id }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+<h1>Управление пользователями</h1>
+<a href="{{ url_for('admin_add_user') }}" class="btn btn-success mb-3">
+    + Добавить пользователя
+</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Имя пользователя</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.user_id }}</td>
+            <td>{{ user.username }}</td>
+            <td>
+                <a href="{{ url_for('admin_edit_user', user_id=user.user_id) }}"
+                   class="btn btn-sm btn-primary">
+                    Редактировать
+                </a>
+                <form method="POST"
+                      action="{{ url_for('admin_delete_user', user_id=user.user_id) }}"
+                      style="display:inline;">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <button type="submit" class="btn btn-sm btn-danger"
+                            onclick="return confirm('Удалить пользователя?')">
+                        Удалить
+                    </button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</body>
+</html>

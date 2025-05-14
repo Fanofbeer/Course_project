@@ -1,0 +1,7 @@
+services:
+  web:
+    build: .
+    command: sh -c "python main.py"
+    ports:
+      - "$HOST$PORT:$PORT"
+

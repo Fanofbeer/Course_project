@@ -1,0 +1,78 @@
+<!-- login.html -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bot Admin - Login</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #2d3436;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            width: 400px;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-top: 8px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #0984e3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">
+            <h2>🤖 Bot Admin</h2>
+            <p>Панель управления Telegram ботом</p>
+        </div>
+            {% if error %}<p style="color:red">{{ error }}</p>{% endif %}
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <p>{{ form.username.label }}<br>{{ form.username }}</p>
+        <p>{{ form.password.label }}<br>{{ form.password }}</p>
+        <button type="submit">Войти</button>
+    </form>
+    </div>
+</body>
+</html>

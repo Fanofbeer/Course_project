@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+{% block content %}
+<h1>Редактирование пользователя #{{ user.user_id }}</h1>
+<form method="POST">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+        {{ form.username.label }}
+        {{ form.username(class="form-control") }}
+    </div>
+    <button type="submit" class="btn btn-primary">Обновить</button>
+</form>
+{% endblock %}
+</body>
+</html>
