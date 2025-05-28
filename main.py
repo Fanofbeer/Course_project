@@ -19,4 +19,4 @@ if __name__ == '__main__':
     flask_thread = Thread(target=start_web)
     flask_thread.start()
     # Запуск бота
-    asyncio.run(start_bot())
+    #asyncio.run(start_bot())

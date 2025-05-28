@@ -88,7 +88,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <div class="sidebar">
+ <div class="sidebar">
         <h2><i class="fas fa-robot"></i> Bot Admin</h2>
         <ul class="sidebar-menu">
             <li><a href="{{ url_for('admin_dashboard') }}" class="active"><i class="fas fa-home"></i> Главная</a></li>
@@ -97,60 +97,37 @@
             <li><a href="{{ url_for('admin_logout') }}"><i class="fas fa-sign-out-alt"></i> Выход</a></li>
         </ul>
     </div>
-<div class="content">
-    <h1>Зарегистрированные пользователи</h1>
-    <a href="{{ url_for('admin_dashboard') }}">Назад</a>
-    <table border="1">
-        <tr>
-            <th>ID</th>
-            <th>Username</th>
-            <th>User ID</th>
-        </tr>
-        {% for user in users %}
-        <tr>
-            <td>{{ user.id }}</td>
-            <td>{{ user.username }}</td>
-            <td>{{ user.user_id }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-<h1>Управление пользователями</h1>
-<a href="{{ url_for('admin_add_user') }}" class="btn btn-success mb-3">
-    + Добавить пользователя
-</a>
+ <div class="content">
 
-<table class="table" border="1">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Имя пользователя</th>
-            <th>Действия</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for user in users %}
-        <tr>
-            <td>{{ user.user_id }}</td>
-            <td>{{ user.username }}</td>
-            <td>
-                <a href="{{ url_for('admin_edit_user', user_id=user.user_id) }}"
-                   class="btn btn-sm btn-primary">
-                    Редактировать
-                </a>
-                <form method="POST"
-                      action="{{ url_for('admin_delete_user', user_id=user.user_id) }}"
-                      style="display:inline;">
-                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-                    <button type="submit" class="btn btn-sm btn-danger"
-                            onclick="return confirm('Удалить пользователя?')">
-                        Удалить
-                    </button>
-                </form>
-            </td>
-        </tr>
+
+<h1>Блюда</h1>
+
+    <form method="POST" action="/admin/dishes/add">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <textarea name="name" required></textarea>
+        <textarea name="ingredients" required></textarea>
+        <select  name="cat">
+            {% for cat in cats %}
+            <option value="{{ cat.category_id }}">{{ cat.name }}</option>
+            {% endfor %}
+            </select >
+        <textarea name="recipe" required></textarea>
+        <button type="submit">Add dish</button>
+    </form>
+
+
+    <ul>
+        {% for dish in dishes %}
+        <li>
+            <p>{{ dish.dish_id }}- {{ dish.name }}</p>
+            <form method="POST" action="/admin/dishes/delete/{{ dish.dish_id }}" style="display:inline;">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <button type="submit">Delete</button>
+            </form>
+        </li>
         {% endfor %}
-    </tbody>
-</table>
-</div>
+    </ul>
+
+ </div>
 </body>
 </html>

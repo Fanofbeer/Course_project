@@ -1,11 +1,12 @@
 from flask import Flask, render_template_string, render_template, request,redirect, url_for, jsonify,flash
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
-from db.models import AdminUser, User
+from db.models import AdminUser, User, Tags, Categories, Dish
 from flask_wtf.csrf import CSRFProtect
 import requests
 import os
 from dotenv import load_dotenv
 from web.forms import *
+from peewee import fn
 load_dotenv()
 
 app = Flask(__name__, template_folder='templates')
@@ -194,3 +195,53 @@ def admin_delete_user(user_id):
     else:
         flash('Пользователь не найден', 'danger')
     return redirect(url_for('admin_users'))
+
+@app.route('/admin/categories')
+@login_required
+def admin_categories():
+    categories = Categories.select(Categories.category_id,Categories.name, fn.rank().over(order_by=[Categories.category_id]).alias('rank')).order_by(Categories.category_id.asc())
+    return render_template('admin/categories.html', categories=categories)
+
+@app.route('/admin/categories/add', methods=['POST'])
+@login_required
+def add_categories():
+    content = request.form.get('content')
+    if content:
+        Categories.create(name=content)
+    return redirect(url_for('admin_categories'))
+
+@app.route('/admin/categories/delete/<int:categories_id>', methods=['POST'])
+@login_required
+def delete_categories(categories_id):
+    categories = Categories.get_or_none(Categories.category_id == categories_id)
+    if categories:
+        categories.delete_instance()
+    return redirect(url_for('admin_categories'))
+
+@app.route('/admin/dishes')
+@login_required
+def admin_dishes():
+    dishes = Dish.select().order_by(Dish.dish_id.asc())
+    cats = Categories.select().order_by(Categories.category_id.asc())
+    return render_template('admin/dishes.html', dishes=dishes, cats = cats)
+
+@app.route('/admin/dishes/add', methods=['POST'])
+@login_required
+def add_dishes():
+    name = request.form.get('name')
+    ingredients = request.form.get('ingredients')
+    recipe = request.form.get('recipe')
+    cat = request.form.get('cat')
+    if name:
+        Dish.create(name=name, ingredients=ingredients, recipe=recipe, Categories_id= cat)
+    return redirect(url_for('admin_dishes'))
+
+@app.route('/admin/dishes/delete/<int:categories_id>', methods=['POST'])
+@login_required
+def delete_dishes(dishes_id):
+    dishes = Dish.get_or_none(Dish.dish_id == dishes_id)
+    if dishes:
+        dishes.delete_instance()
+    return redirect(url_for('admin_dishes'))
+
+

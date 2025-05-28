@@ -22,3 +22,8 @@ class EditUserForm(FlaskForm):
 class LoginForm(FlaskForm):
     username = StringField('Логин', validators=[DataRequired()])
     password = PasswordField('Пароль', validators=[DataRequired()])
+
+class AddCategoryForm(FlaskForm):
+    name = StringField('Наименование', [
+        validators.InputRequired(),
+    ])
