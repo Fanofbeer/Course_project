@@ -1,0 +1,30 @@
+<!-- tags.html -->
+{% extends 'admin/base.html' %}
+
+{% block content %}
+    <div class="content">
+<h1>Теги</h1>
+
+    <form method="POST" action="/admin/tags/add">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+    <div>
+        <textarea name="name" required></textarea>
+    </div>
+           <button type="submit" class="button">Добавить</button>
+    </form>
+
+
+    <ul>
+        {% for tag in tags %}
+        <li>
+            <p>{{ tag.rank }}- {{ tag.name }}</p>
+            <form method="POST" action="/admin/tags/delete/{{ tag.tag_id }}" style="display:inline;">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <button type="submit" class="button">Удалить</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+
+ </div>
+{% endblock %}

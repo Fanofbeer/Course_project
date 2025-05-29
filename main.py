@@ -16,7 +16,8 @@ def start_web():
 
 if __name__ == '__main__':
     # Запуск веб-сервера в отдельном потоке
-    flask_thread = Thread(target=start_web)
-    flask_thread.start()
+    #flask_thread = Thread(target=start_web)
+    #flask_thread.start()
+    start_web()
     # Запуск бота
     #asyncio.run(start_bot())

@@ -1,0 +1,32 @@
+<!-- base.html -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bot Admin - Главная</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="sidebar">
+        <h2><i class="fas fa-robot"></i> Bot Admin</h2>
+        <ul class="sidebar-menu">
+            <li><a href="{{ url_for('admin_dashboard') }}" class="active"><i class="fas fa-home"></i> Главная</a></li>
+            <li><a href="{{ url_for('admin_users') }}"><i class="fas fa-users"></i> Пользователи</a></li>
+            <li><a href="{{ url_for('admin_send_message',user_id='0') }}"><i class="fas fa-users"></i> Отправка сообщения</a></li>
+            <li><a href="{{ url_for('admin_tags') }}"><i class="fas fa-users"></i> Теги</a></li>
+            <li><a href="{{ url_for('admin_categories') }}"><i class="fas fa-users"></i> Категории блюд</a></li>
+            <li><a href="{{ url_for('admin_dishes') }}"><i class="fas fa-users"></i> Блюда</a></li>
+            <li><a href="{{ url_for('admin_logout') }}"><i class="fas fa-sign-out-alt"></i> Выход</a></li>
+        </ul>
+    </div>
+{% block content %}
+    <div class="content">
+
+        <!-- Other templates' content will go here -->
+
+    </div>
+{% endblock %}
+</body>
+</html>

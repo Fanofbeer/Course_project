@@ -1,0 +1,25 @@
+<!-- tagdish_edit.html -->
+{% extends 'admin/base.html' %}
+
+{% block content %}
+    <div class="content">
+<h1>Теги блюда {{ dish.name }}</h1>
+
+    <form method="POST" action="/admin/tagdish_edit/save/{{ dish.dish_id }}" style="display:inline;">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+    <ul>
+        {% for tag in tags %}
+        <li>
+            <p>{{ tag.name }}</p>
+
+
+                <input type="checkbox" name="{{ tag.name }}" value="1" {{'checked="checked"' if tag.check else ""}}>
+
+
+        </li>
+        {% endfor %}
+    </ul>
+    <button type="submit" class="button">Сохранить</button>
+    </form>
+ </div>
+{% endblock %}

@@ -25,13 +25,13 @@ class User(Model):
     class Meta:
         database = db
 
-class Tags(Model):
-    tag_id = BigIntegerField(unique=True)
+class Tag(Model):
+    tag_id = AutoField()
     name = CharField(unique=True)
     class Meta:
         database = db
 
-class Categories(Model):
+class Category(Model):
     category_id = AutoField()
     name = CharField(unique=True)
     class Meta:
@@ -40,12 +40,19 @@ class Categories(Model):
 class Dish(Model):
     dish_id = AutoField()
     name = CharField(unique=True)
-    Categories_id = ForeignKeyField(Categories, backref='dish')
+    category_id = ForeignKeyField(Category, backref='dish')
     ingredients = TextField(null=True)
     recipe = TextField(null=True)
     tags = BigIntegerField(default=0)
     class Meta:
         database = db
 
+class TagDish(Model):
+    TagDish_id = AutoField()
+    dish_id = ForeignKeyField(Dish, backref='tagdish', on_delete='CASCADE')
+    tag_id = ForeignKeyField(Tag, backref='tagdish',  on_delete='CASCADE')
+    class Meta:
+        database = db
+
 # Создаем таблицы при первом запуске
-db.create_tables([AdminUser,User,Tags,Categories,Dish], safe=True)
+db.create_tables([AdminUser,User,Tag,Category,Dish,TagDish], safe=True)
