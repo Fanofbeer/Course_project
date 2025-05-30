@@ -2,6 +2,11 @@ from peewee import *
 from peewee import BitField
 from db.models import AdminUser, User, Tag, Category, Dish,TagDish
 
+AdminUser.delete().execute()
+Dish.delete().execute()
+Category.delete().execute()
+Tag.delete().execute()
+
 n=137268
 r = 20
 k = 0
@@ -27,6 +32,10 @@ for tag in tags:
 t =TagDish.select().dicts()
 for d in t:
     print(d)
+
+dishes = Dish.select().order_by(Dish.dish_id.asc())
+for dish in dishes:
+    print(dish.category_id.name)
 
 # query = TagDish.delete()
 # query.execute()

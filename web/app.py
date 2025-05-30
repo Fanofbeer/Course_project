@@ -239,7 +239,7 @@ def add_dishes():
         Dish.create(name=name, ingredients=ingredients, recipe=recipe, category_id= cat)
     return redirect(url_for('admin_dishes'))
 
-@app.route('/admin/dishes/delete/<int:categories_id>', methods=['POST'])
+@app.route('/admin/dishes/delete/<int:dishes_id>', methods=['POST'])
 @login_required
 def delete_dishes(dishes_id):
     dishes = Dish.get_or_none(Dish.dish_id == dishes_id)
@@ -267,7 +267,7 @@ def delete_tags(tag_id):
     tags = Tag.get_or_none(Tag.tag_id == tag_id)
     if tags:
         tags.delete_instance()
-        TagDish.delete().where(TagDish.tag_id == tags).execute()
+        #TagDish.delete().where(TagDish.tag_id == tags).execute()
     return redirect(url_for('admin_tags'))
 
 @app.route('/admin/tagdish_edit/<int:dish_id>')

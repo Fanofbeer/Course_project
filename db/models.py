@@ -2,7 +2,7 @@ from peewee import *
 from werkzeug.security import generate_password_hash, check_password_hash
 import datetime
 
-db = SqliteDatabase('bot.db')
+db = SqliteDatabase('bot.db',pragmas={'foreign_keys': 1})
 
 class AdminUser(Model):
     username = CharField(unique=True)
@@ -43,7 +43,6 @@ class Dish(Model):
     category_id = ForeignKeyField(Category, backref='dish')
     ingredients = TextField(null=True)
     recipe = TextField(null=True)
-    tags = BigIntegerField(default=0)
     class Meta:
         database = db
 

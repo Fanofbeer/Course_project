@@ -7,10 +7,10 @@
 
         <form method="POST" action="/admin/dishes/add">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-            <table class="table" border="1">
+            <table class="table" border="1" style="width:100%">
                 <tbody>
                 <tr>
-                    <td>Название блюда:</td>
+                    <td style="width:200px">Название блюда:</td>
                     <td><textarea name="name" required></textarea></td>
                 </tr>
                 <tr>
@@ -44,7 +44,7 @@
         <ul>
             {% for dish in dishes %}
                 <li>
-                    <p>{{ dish.dish_id }}- {{ dish.name }}</p>
+                    <p>{{ dish.dish_id }}- {{ dish.name }}- {{dish.category_id.name}}</p>
                     <a href="{{ url_for('admin_tagdish_edit',dish_id=dish.dish_id) }}"
                        class="button">
                         Редактировать теги
