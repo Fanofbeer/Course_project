@@ -1,7 +1,9 @@
 services:
   web:
+    volumes:
+      - .:/app
     build: .
     command: sh -c "python main.py"
     ports:
-      - "$HOST$PORT:$PORT"
+      - "$PORT:$PORT"
 
