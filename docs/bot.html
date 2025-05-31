@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Python: module bot</title>
+</head><body>
+
+<table class="heading">
+<tr class="heading-text decor">
+<td class="title">&nbsp;<br><strong class="title">bot</strong></td>
+<td class="extra"><a href=".">index</a><br><a href="file:d%3A%5Cwork%5Cgit%5Ccourse_project%5Cbot%5Cbot.py">d:\work\git\course_project\bot\bot.py</a></td></tr></table>
+    <p><span class="code">Описание&nbsp;работы&nbsp;Telegram-бота</span></p>
+<p>
+<table class="section">
+<tr class="decor pkg-content-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Modules</strong></td></tr>
+    
+<tr><td class="decor pkg-content-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><table><tr><td class="multicolumn"><a href="logging.html">logging</a><br>
+</td><td class="multicolumn"><a href="os.html">os</a><br>
+</td><td class="multicolumn"><a href="aiogram.types.html">aiogram.types</a><br>
+</td><td class="multicolumn"></td></tr></table></td></tr></table><p>
+<table class="section">
+<tr class="decor index-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Classes</strong></td></tr>
+    
+<tr><td class="decor index-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><dl>
+<dt class="heading-text"><a href="aiogram.fsm.state.html#StatesGroup">aiogram.fsm.state.StatesGroup</a>(<a href="builtins.html#object">builtins.object</a>)
+</dt><dd>
+<dl>
+<dt class="heading-text"><a href="bot.html#Form">Form</a>
+</dt></dl>
+</dd>
+</dl>
+ <p>
+<table class="section">
+<tr class="decor title-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><a name="Form">class <strong>Form</strong></a>(<a href="aiogram.fsm.state.html#StatesGroup">aiogram.fsm.state.StatesGroup</a>)</td></tr>
+    
+<tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
+<td class="decor title-decor" colspan=2><span class="code">Класс&nbsp;состояний<br>&nbsp;</span></td></tr>
+<tr><td>&nbsp;</td>
+<td class="singlecolumn"><dl><dt>Method resolution order:</dt>
+<dd><a href="bot.html#Form">Form</a></dd>
+<dd><a href="aiogram.fsm.state.html#StatesGroup">aiogram.fsm.state.StatesGroup</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>__all_childs__</strong> = ()</dl>
+
+<dl><dt><strong>__all_states__</strong> = (&lt;State 'Form:reg'&gt;, &lt;State 'Form:main_menu'&gt;, &lt;State 'Form:cat'&gt;, &lt;State 'Form:cat_dish'&gt;, &lt;State 'Form:tag'&gt;, &lt;State 'Form:tag_dish'&gt;, &lt;State 'Form:all_dish'&gt;, &lt;State 'Form:search_by_name'&gt;, &lt;State 'Form:find_dish'&gt;)</dl>
+
+<dl><dt><strong>__all_states_names__</strong> = ('Form:reg', 'Form:main_menu', 'Form:cat', 'Form:cat_dish', 'Form:tag', 'Form:tag_dish', 'Form:all_dish', 'Form:search_by_name', 'Form:find_dish')</dl>
+
+<dl><dt><strong>__childs__</strong> = ()</dl>
+
+<dl><dt><strong>__parent__</strong> = None</dl>
+
+<dl><dt><strong>__state_names__</strong> = ('Form:reg', 'Form:main_menu', 'Form:cat', 'Form:cat_dish', 'Form:tag', 'Form:tag_dish', 'Form:all_dish', 'Form:search_by_name', 'Form:find_dish')</dl>
+
+<dl><dt><strong>__states__</strong> = (&lt;State 'Form:reg'&gt;, &lt;State 'Form:main_menu'&gt;, &lt;State 'Form:cat'&gt;, &lt;State 'Form:cat_dish'&gt;, &lt;State 'Form:tag'&gt;, &lt;State 'Form:tag_dish'&gt;, &lt;State 'Form:all_dish'&gt;, &lt;State 'Form:search_by_name'&gt;, &lt;State 'Form:find_dish'&gt;)</dl>
+
+<dl><dt><strong>all_dish</strong> = &lt;State 'Form:all_dish'&gt;</dl>
+
+<dl><dt><strong>cat</strong> = &lt;State 'Form:cat'&gt;</dl>
+
+<dl><dt><strong>cat_dish</strong> = &lt;State 'Form:cat_dish'&gt;</dl>
+
+<dl><dt><strong>find_dish</strong> = &lt;State 'Form:find_dish'&gt;</dl>
+
+<dl><dt><strong>main_menu</strong> = &lt;State 'Form:main_menu'&gt;</dl>
+
+<dl><dt><strong>reg</strong> = &lt;State 'Form:reg'&gt;</dl>
+
+<dl><dt><strong>search_by_name</strong> = &lt;State 'Form:search_by_name'&gt;</dl>
+
+<dl><dt><strong>tag</strong> = &lt;State 'Form:tag'&gt;</dl>
+
+<dl><dt><strong>tag_dish</strong> = &lt;State 'Form:tag_dish'&gt;</dl>
+
+<hr>
+Methods inherited from <a href="aiogram.fsm.state.html#StatesGroup">aiogram.fsm.state.StatesGroup</a>:<br>
+<dl><dt><a name="Form-__call__"><strong>__call__</strong></a>(
+    self,
+    event: aiogram.types.base.TelegramObject,
+    raw_state: Optional[str] = None
+) -&gt; bool</dt><dd><span class="code">Call&nbsp;self&nbsp;as&nbsp;a&nbsp;function.</span></dd></dl>
+
+<dl><dt><a name="Form-__str__"><strong>__str__</strong></a>(self) -&gt; str</dt><dd><span class="code">Return&nbsp;str(self).</span></dd></dl>
+
+<hr>
+Class methods inherited from <a href="aiogram.fsm.state.html#StatesGroup">aiogram.fsm.state.StatesGroup</a>:<br>
+<dl><dt><a name="Form-get_root"><strong>get_root</strong></a>() -&gt; Type[ForwardRef('StatesGroup')]</dt></dl>
+
+<hr>
+Data descriptors inherited from <a href="aiogram.fsm.state.html#StatesGroup">aiogram.fsm.state.StatesGroup</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><span class="code">dictionary&nbsp;for&nbsp;instance&nbsp;variables</span></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><span class="code">list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object</span></dd>
+</dl>
+</td></tr></table></td></tr></table><p>
+<table class="section">
+<tr class="decor functions-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Functions</strong></td></tr>
+    
+<tr><td class="decor functions-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><dl><dt>async <a name="-all_dish_menu"><strong>all_dish_menu</strong></a>(
+    message: aiogram.types.message.Message,
+    state: aiogram.fsm.context.FSMContext
+)</dt><dd><span class="code">Меню&nbsp;выбора&nbsp;их&nbsp;всех&nbsp;блюд.&nbsp;Варианты&nbsp;взаимодействия:<br>
+Назад&nbsp;-&nbsp;перенапралвение&nbsp;в&nbsp;главное&nbsp;меню<br>
+Выбор&nbsp;блюда&nbsp;-&nbsp;вывод&nbsp;информации&nbsp;о&nbsp;выбранном&nbsp;блюде<br>
+Ввод&nbsp;значений&nbsp;не&nbsp;из&nbsp;списка&nbsp;возвращает&nbsp;текст&nbsp;'Неизвестное&nbsp;блюдо'</span></dd></dl>
+ <dl><dt>async <a name="-cat_dish_menu"><strong>cat_dish_menu</strong></a>(
+    message: aiogram.types.message.Message,
+    state: aiogram.fsm.context.FSMContext
+)</dt><dd><span class="code">Меню&nbsp;выбора&nbsp;блюда&nbsp;по&nbsp;категории.&nbsp;Варианты&nbsp;взаимодействия:<br>
+Назад&nbsp;-&nbsp;перенапралвение&nbsp;в&nbsp;меню&nbsp;выбора&nbsp;категории<br>
+В&nbsp;начало&nbsp;-&nbsp;перенаправление&nbsp;в&nbsp;главное&nbsp;меню<br>
+Выбор&nbsp;блюда&nbsp;-&nbsp;вывод&nbsp;информации&nbsp;о&nbsp;выбранном&nbsp;блюде<br>
+Ввод&nbsp;значений&nbsp;не&nbsp;из&nbsp;списка&nbsp;возвращает&nbsp;текст&nbsp;'Неизвестное&nbsp;блюдо'</span></dd></dl>
+ <dl><dt>async <a name="-cat_menu"><strong>cat_menu</strong></a>(
+    message: aiogram.types.message.Message,
+    state: aiogram.fsm.context.FSMContext
+)</dt><dd><span class="code">Меню&nbsp;выбора&nbsp;котегорий.&nbsp;Варианты&nbsp;взаимодействия:<br>
+Назад&nbsp;-&nbsp;возвращение&nbsp;в&nbsp;главное&nbsp;меню<br>
+Выбор&nbsp;категории&nbsp;-&nbsp;перенаправление&nbsp;на&nbsp;меню&nbsp;выбора&nbsp;блюд&nbsp;по&nbsp;категории<br>
+Ввод&nbsp;значений&nbsp;не&nbsp;из&nbsp;списка&nbsp;не&nbsp;приводит&nbsp;к&nbsp;реакции&nbsp;бота</span></dd></dl>
+ <dl><dt>async <a name="-cmd_start"><strong>cmd_start</strong></a>(
+    message: aiogram.types.message.Message,
+    state: aiogram.fsm.context.FSMContext
+)</dt><dd><span class="code">Старт&nbsp;работы&nbsp;с&nbsp;ботом&nbsp;при&nbsp;команде&nbsp;/start&nbsp;.<br>
+Незарегистрированным&nbsp;пользователям&nbsp;предлагает&nbsp;зарегистрироваться.<br>
+Зарегистрированных&nbsp;-&nbsp;перенаправляет&nbsp;в&nbsp;гравное&nbsp;меню</span></dd></dl>
+ <dl><dt>async <a name="-find_dish"><strong>find_dish</strong></a>(
+    message: aiogram.types.message.Message,
+    state: aiogram.fsm.context.FSMContext
+)</dt><dd><span class="code">Меню&nbsp;выбора&nbsp;их&nbsp;всех&nbsp;блюд.&nbsp;Варианты&nbsp;взаимодействия:<br>
+Назад&nbsp;-&nbsp;перенапралвение&nbsp;в&nbsp;меню&nbsp;поиска<br>
+Выбор&nbsp;блюда&nbsp;-&nbsp;вывод&nbsp;информации&nbsp;о&nbsp;выбранном&nbsp;блюде<br>
+Ввод&nbsp;значений&nbsp;не&nbsp;из&nbsp;списка&nbsp;возвращает&nbsp;текст&nbsp;'Неизвестное&nbsp;блюдо'</span></dd></dl>
+ <dl><dt>async <a name="-main_menu"><strong>main_menu</strong></a>(
+    message: aiogram.types.message.Message,
+    state: aiogram.fsm.context.FSMContext
+)</dt><dd><span class="code">Главное&nbsp;меню.&nbsp;Варианты&nbsp;взаимодействия:<br>
+Отменить&nbsp;регистрацию&nbsp;-&nbsp;удаление&nbsp;пользователя&nbsp;из&nbsp;базы&nbsp;данных<br>
+Выбор&nbsp;блюд&nbsp;по&nbsp;категориям&nbsp;-&nbsp;перенаправление&nbsp;на&nbsp;меню&nbsp;со&nbsp;списком&nbsp;категорий<br>
+Выбор&nbsp;блюд&nbsp;по&nbsp;тегам&nbsp;-&nbsp;перенаправление&nbsp;на&nbsp;меню&nbsp;со&nbsp;списком&nbsp;тегов<br>
+Выбор&nbsp;блюд&nbsp;из&nbsp;общего&nbsp;списка&nbsp;-&nbsp;перенаправление&nbsp;на&nbsp;меню&nbsp;со&nbsp;списком&nbsp;всех&nbsp;блюд<br>
+Поиск&nbsp;блюда&nbsp;по&nbsp;названию&nbsp;-&nbsp;перенаправление&nbsp;в&nbsp;меню&nbsp;поиска&nbsp;по&nbsp;названию</span></dd></dl>
+ <dl><dt><a name="-make_row_keyboard"><strong>make_row_keyboard</strong></a>(items: list[str]) -&gt; aiogram.types.reply_keyboard_markup.ReplyKeyboardMarkup</dt><dd><span class="code">Создаем&nbsp;клавиатуру&nbsp;из&nbsp;текстового&nbsp;списка</span></dd></dl>
+ <dl><dt>async <a name="-register_user"><strong>register_user</strong></a>(
+    message: aiogram.types.message.Message,
+    state: aiogram.fsm.context.FSMContext
+)</dt><dd><span class="code">Регистрация&nbsp;пользователя&nbsp;с&nbsp;занесением&nbsp;в&nbsp;базу&nbsp;данных.&nbsp;После&nbsp;регистрации&nbsp;перенаправляем&nbsp;в&nbsp;главное&nbsp;меню.</span></dd></dl>
+ <dl><dt>async <a name="-search_by_name_menu"><strong>search_by_name_menu</strong></a>(
+    message: aiogram.types.message.Message,
+    state: aiogram.fsm.context.FSMContext
+)</dt><dd><span class="code">Меню&nbsp;поиска&nbsp;по&nbsp;названию&nbsp;блюда.&nbsp;Варианты&nbsp;взаимодействия:<br>
+Назад&nbsp;-&nbsp;перенапралвение&nbsp;в&nbsp;главное&nbsp;меню<br>
+Ввода&nbsp;текста&nbsp;-&nbsp;поиск&nbsp;в&nbsp;названии&nbsp;блюда&nbsp;введенного&nbsp;текста,&nbsp;без&nbsp;учета&nbsp;регистра.<br>
+При&nbsp;нахождении&nbsp;блюд&nbsp;перенаправление&nbsp;в&nbsp;меню&nbsp;выбора&nbsp;блюд,&nbsp;а&nbsp;при&nbsp;отсутствии&nbsp;вывод&nbsp;сообщение&nbsp;'Блюда&nbsp;не&nbsp;найдены'</span></dd></dl>
+ <dl><dt>async <a name="-tag_dish_menu"><strong>tag_dish_menu</strong></a>(
+    message: aiogram.types.message.Message,
+    state: aiogram.fsm.context.FSMContext
+)</dt><dd><span class="code">Меню&nbsp;выбора&nbsp;блюда&nbsp;по&nbsp;тегу.&nbsp;Варианты&nbsp;взаимодействия:<br>
+Назад&nbsp;-&nbsp;перенапралвение&nbsp;в&nbsp;меню&nbsp;выбора&nbsp;тега<br>
+В&nbsp;начало&nbsp;-&nbsp;перенаправление&nbsp;в&nbsp;главное&nbsp;меню<br>
+Выбор&nbsp;блюда&nbsp;-&nbsp;вывод&nbsp;информации&nbsp;о&nbsp;выбранном&nbsp;блюде<br>
+Ввод&nbsp;значений&nbsp;не&nbsp;из&nbsp;списка&nbsp;возвращает&nbsp;текст&nbsp;'Неизвестное&nbsp;блюдо'</span></dd></dl>
+ <dl><dt>async <a name="-tag_menu"><strong>tag_menu</strong></a>(
+    message: aiogram.types.message.Message,
+    state: aiogram.fsm.context.FSMContext
+)</dt><dd><span class="code">Меню&nbsp;выбора&nbsp;тега.&nbsp;Варианты&nbsp;взаимодействия:<br>
+Назад&nbsp;-&nbsp;возвращение&nbsp;в&nbsp;главное&nbsp;меню<br>
+Без&nbsp;тегов&nbsp;-&nbsp;перенаправление&nbsp;на&nbsp;меню&nbsp;выбора&nbsp;блюд,&nbsp;у&nbsp;которых&nbsp;не&nbsp;выбрано&nbsp;ни&nbsp;одного&nbsp;тега<br>
+Выбор&nbsp;тега&nbsp;-&nbsp;перенаправление&nbsp;на&nbsp;меню&nbsp;выбора&nbsp;блюд&nbsp;по&nbsp;тегу<br>
+Ввод&nbsp;значений&nbsp;не&nbsp;из&nbsp;списка&nbsp;не&nbsp;приводит&nbsp;к&nbsp;реакции&nbsp;бота</span></dd></dl>
+</td></tr></table><p>
+<table class="section">
+<tr class="decor data-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Data</strong></td></tr>
+    
+<tr><td class="decor data-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><strong>DJANGO_MAP</strong> = {'eq': &lt;built-in function eq&gt;, 'lt': &lt;built-in f...gexp': &lt;function &lt;lambda&gt; at 0x000001F1066696C0&gt;}<br>
+<strong>EXCLUDED</strong> = &lt;peewee._Namespace object&gt;<br>
+<strong>F</strong> = &lt;aiogram.utils.magic_filter.MagicFilter object&gt;<br>
+<strong>JOIN</strong> = {'INNER': 'INNER JOIN', 'LEFT_OUTER': 'LEFT OUTE...: 'LATERAL', 'LEFT_LATERAL': 'LEFT JOIN LATERAL'}<br>
+<strong>OP</strong> = {'AND': 'AND', 'OR': 'OR', 'ADD': '+', 'SUB': '-...REGEXP', 'CONCAT': '||', 'BITWISE_NEGATION': '~'}<br>
+<strong>PREFETCH_TYPE</strong> = {'WHERE': 1, 'JOIN': 2}<br>
+<strong>bot</strong> = &lt;aiogram.client.bot.Bot object&gt;<br>
+<strong>dp</strong> = &lt;Dispatcher '0x1f10689fb60'&gt;<br>
+<strong>f_list</strong> = ['Зарегистрироваться']<br>
+<strong>fn</strong> = &lt;peewee.Function object&gt;<br>
+<strong>main_list</strong> = ['Блюда по категориям', 'Блюда по тегам', 'Все блюда', 'Поиск по названию', 'Выход']</td></tr></table>
+</body></html>

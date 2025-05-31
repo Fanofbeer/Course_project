@@ -1,3 +1,8 @@
+"""
+Создание базы данных и описание таблиц
+Создает указанные таблицы при их отсутствии
+"""
+
 from peewee import *
 from werkzeug.security import generate_password_hash, check_password_hash
 import datetime
@@ -5,6 +10,7 @@ import datetime
 db = SqliteDatabase('bot.db',pragmas={'foreign_keys': 1})
 
 class AdminUser(Model):
+    """Класс для пользователей веб-админки"""
     username = CharField(unique=True)
     password_hash = CharField()
 
@@ -18,27 +24,30 @@ class AdminUser(Model):
         database = db
 
 class User(Model):
+    """ Класс для зарегистрированных пользователей бота """
     user_id = BigIntegerField(unique=True)
     username = CharField(max_length=255, null=True)
-    is_banned = BooleanField(default=False)
     registered_at = DateTimeField(default=datetime.datetime.now)
     class Meta:
         database = db
 
 class Tag(Model):
-    tag_id = AutoField()
+    """ Класс для списка тегов"""
+    id = AutoField()
     name = CharField(unique=True)
     class Meta:
         database = db
 
 class Category(Model):
-    category_id = AutoField()
+    """ Класс для списка категорий """
+    id = AutoField()
     name = CharField(unique=True)
     class Meta:
         database = db
 
 class Dish(Model):
-    dish_id = AutoField()
+    """ Класс для списка блюд"""
+    id = AutoField()
     name = CharField(unique=True)
     category_id = ForeignKeyField(Category, backref='dish')
     ingredients = TextField(null=True)
@@ -47,11 +56,12 @@ class Dish(Model):
         database = db
 
 class TagDish(Model):
-    TagDish_id = AutoField()
+    """ Класс для связки блюда с тегами"""
+    id = AutoField()
     dish_id = ForeignKeyField(Dish, backref='tagdish', on_delete='CASCADE')
     tag_id = ForeignKeyField(Tag, backref='tagdish',  on_delete='CASCADE')
     class Meta:
         database = db
 
-# Создаем таблицы при первом запуске
+
 db.create_tables([AdminUser,User,Tag,Category,Dish,TagDish], safe=True)

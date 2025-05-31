@@ -1,3 +1,5 @@
+""" Описание форм ввода данных для веб-админки"""
+
 from wtforms import IntegerField, validators
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField
@@ -22,8 +24,3 @@ class EditUserForm(FlaskForm):
 class LoginForm(FlaskForm):
     username = StringField('Логин', validators=[DataRequired()])
     password = PasswordField('Пароль', validators=[DataRequired()])
-
-class AddCategoryForm(FlaskForm):
-    name = StringField('Наименование', [
-        validators.InputRequired(),
-    ])

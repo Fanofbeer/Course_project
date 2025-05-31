@@ -1,20 +1,21 @@
-from flask import Flask, render_template_string, render_template, request,redirect, url_for, jsonify,flash
-from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
-from db.models import AdminUser, User, Tag, Category, Dish, TagDish
-from flask_wtf.csrf import CSRFProtect
-import requests
+""" Описание работы веб-админки """
+
 import os
 
+import requests
 from dotenv import load_dotenv
+from flask import Flask, render_template_string, render_template, request, redirect, url_for, flash
+from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+from flask_wtf.csrf import CSRFProtect
+from peewee import fn, JOIN
+
+from db.models import AdminUser, User, Tag, Category, Dish, TagDish
 from web.forms import *
-from peewee import fn,JOIN
+
 load_dotenv()
 
 app = Flask(__name__, template_folder='templates')
-
-
-SECRET_KEY = os.getenv('SECRET_KEY')
-app.config['SECRET_KEY'] = SECRET_KEY
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 csrf = CSRFProtect(app)
 # Инициализация Flask-Login
 login_manager = LoginManager()
@@ -41,6 +42,7 @@ class FlaskAdminUser:
 
 @login_manager.user_loader
 def load_user(user_id):
+    """ Загрузчик пользователя """
     try:
         admin_user = AdminUser.get_by_id(user_id)
         return FlaskAdminUser(admin_user)
@@ -48,13 +50,12 @@ def load_user(user_id):
         return None
 @app.route('/')
 def index():
+    """ Главная страница для авторизации"""
     return render_template('index.html')
-    # return render_template_string('''
-    #     <h1>Веб-интерфейс бота</h1>
-    #     <p>Статус бота: Активен</p>
-    # ''')
+
 @app.route('/users')
 def users():
+    """ Вывод зарегистрированных пользователей бота без необходимости авторизации """
     users = User.select()
     return render_template_string('''
         <h1>Зарегистрированные пользователи</h1>
@@ -65,15 +66,9 @@ def users():
         </ul>
     ''', users=users)
 
-@login_manager.user_loader
-def load_user(user_id):
-    try:
-        admin_user = AdminUser.get_by_id(user_id)
-        return FlaskAdminUser(admin_user)
-    except AdminUser.DoesNotExist:
-        return None
 @app.route('/admin/login', methods=['GET', 'POST'])
 def admin_login():
+    """ Авторизация пользователя"""
     form = LoginForm()
     error_message = None
 
@@ -104,6 +99,7 @@ def admin_login():
 @app.route('/admin/logout')
 @login_required
 def admin_logout():
+    """ Выход из системы """
     logout_user()
     return redirect(url_for('admin_login'))
 
@@ -111,6 +107,7 @@ def admin_logout():
 @app.route('/admin/dashboard')
 @login_required
 def admin_dashboard():
+    """ Главная страница после авторизации"""
     total_users = User.select().count()
     return render_template('admin/dashboard.html',
                            total_users=total_users,
@@ -120,6 +117,7 @@ def admin_dashboard():
 @app.route('/admin/users')
 @login_required
 def admin_users():
+    """ Список загеристрированных пользователей"""
     users = User.select()
     return render_template('admin/users.html', users=users)
 
@@ -127,6 +125,8 @@ def admin_users():
 @app.route('/admin/send_message/<int:user_id>', methods=['GET', 'POST'])  # Добавлен GET
 @login_required
 def admin_send_message(user_id):
+    """ Страница отправки сообщения.
+        Есть возможность подставлять ID пользователя при переходе из списка пользователей"""
     user = User.get_or_none(User.user_id == user_id)
     if request.method == 'GET':
         # Показываем форму для ввода данных
@@ -157,6 +157,7 @@ def admin_send_message(user_id):
 @app.route('/admin/users/add', methods=['GET', 'POST'])
 @login_required
 def admin_add_user():
+    """ Страница ручного добавления пользователей бота"""
     form = AddUserForm()
     if form.validate_on_submit():
         try:
@@ -174,6 +175,7 @@ def admin_add_user():
 @app.route('/admin/users/<int:user_id>/edit', methods=['GET', 'POST'])
 @login_required
 def admin_edit_user(user_id):
+    """ Страница изменения подписи пользователя бота"""
     user = User.get_or_none(User.user_id == user_id)
     if not user:
         flash('Пользователь не найден', 'danger')
@@ -191,6 +193,7 @@ def admin_edit_user(user_id):
 @app.route('/admin/users/<int:user_id>/delete', methods=['POST'])
 @login_required
 def admin_delete_user(user_id):
+    """ Удаление пользователя бота"""
     user = User.get_or_none(User.user_id == user_id)
     if user:
         user.delete_instance()
@@ -202,21 +205,24 @@ def admin_delete_user(user_id):
 @app.route('/admin/categories')
 @login_required
 def admin_categories():
-    categories = Category.select(Category.category_id,Category.name, fn.rank().over(order_by=[Category.category_id]).alias('rank')).order_by(Category.category_id.asc())
+    """ Страница со списком категорий"""
+    categories = Category.select(Category.id,Category.name, fn.rank().over(order_by=[Category.id]).alias('rank')).order_by(Category.id.asc())
     return render_template('admin/categories.html', categories=categories)
 
 @app.route('/admin/categories/add', methods=['POST'])
 @login_required
 def add_categories():
+    """ Метод добавления новой категории"""
     content = request.form.get('content')
     if content:
         Category.create(name=content)
     return redirect(url_for('admin_categories'))
 
-@app.route('/admin/categories/delete/<int:categories_id>', methods=['POST'])
+@app.route('/admin/categories/delete/<int:category_id>', methods=['POST'])
 @login_required
 def delete_categories(category_id):
-    categories = Category.get_or_none(Category.category_id == category_id)
+    """ Метод удаления категории """
+    categories = Category.get_or_none(Category.id == category_id)
     if categories:
         categories.delete_instance()
     return redirect(url_for('admin_categories'))
@@ -224,13 +230,15 @@ def delete_categories(category_id):
 @app.route('/admin/dishes')
 @login_required
 def admin_dishes():
-    dishes = Dish.select().order_by(Dish.dish_id.asc())
-    cats = Category.select().order_by(Category.category_id.asc())
+    """ Старница списка блюд"""
+    dishes = Dish.select().order_by(Dish.id.asc())
+    cats = Category.select().order_by(Category.id.asc())
     return render_template('admin/dishes.html', dishes=dishes, cats = cats)
 
 @app.route('/admin/dishes/add', methods=['POST'])
 @login_required
 def add_dishes():
+    """ Метод добавления нового блюда """
     name = request.form.get('name')
     ingredients = request.form.get('ingredients')
     recipe = request.form.get('recipe')
@@ -242,7 +250,8 @@ def add_dishes():
 @app.route('/admin/dishes/delete/<int:dishes_id>', methods=['POST'])
 @login_required
 def delete_dishes(dishes_id):
-    dishes = Dish.get_or_none(Dish.dish_id == dishes_id)
+    """ Метод удаления блюда """
+    dishes = Dish.get_or_none(Dish.id == dishes_id)
     if dishes:
         dishes.delete_instance()
     return redirect(url_for('admin_dishes'))
@@ -250,12 +259,14 @@ def delete_dishes(dishes_id):
 @app.route('/admin/tags')
 @login_required
 def admin_tags():
-    tags = Tag.select(Tag.tag_id,Tag.name, fn.rank().over(order_by=[Tag.tag_id]).alias('rank')).order_by(Tag.tag_id.asc())
+    """ Страница списка тегов """
+    tags = Tag.select(Tag.id,Tag.name, fn.rank().over(order_by=[Tag.id]).alias('rank')).order_by(Tag.id.asc())
     return render_template('admin/tags.html', tags=tags)
 
 @app.route('/admin/tags/add', methods=['POST'])
 @login_required
 def add_tags():
+    """ Метод добавления тега"""
     content = request.form.get('name')
     if content:
         Tag.create(name=content)
@@ -264,34 +275,35 @@ def add_tags():
 @app.route('/admin/tags/delete/<int:tag_id>', methods=['POST'])
 @login_required
 def delete_tags(tag_id):
-    tags = Tag.get_or_none(Tag.tag_id == tag_id)
+    """ Метод удаления тега """
+    tags = Tag.get_or_none(Tag.id == tag_id)
     if tags:
         tags.delete_instance()
-        #TagDish.delete().where(TagDish.tag_id == tags).execute()
     return redirect(url_for('admin_tags'))
 
 @app.route('/admin/tagdish_edit/<int:dish_id>')
 @login_required
 def admin_tagdish_edit(dish_id):
-    dish = Dish.get_or_none(Dish.dish_id == dish_id)
-    tags = Tag.select(Tag.tag_id,Tag.name, (~TagDish.TagDish_id.is_null().alias('check'))).join(TagDish,JOIN.LEFT_OUTER, on=((TagDish.tag_id==Tag.tag_id) & (TagDish.dish_id==dish_id)))
-    #tags = Tag.select().join(TagDish, JOIN.LEFT_OUTER, on=(Tag.tag_id==TagDish.tag_id)).where(TagDish.dish_id == dish_id)
-    #tags = TagDish.select().join(Tag, on=(TagDish.tag_id == Tag.tag_id)).where(TagDish.dish_id == dish_id)
-
+    """ Страница редактирования тегов у выбранного блюда
+        Отдельно передаем те, которые сейчас выбраны"""
+    dish = Dish.get_or_none(Dish.id == dish_id)
+    tags = Tag.select(Tag.id,Tag.name, (~TagDish.id.is_null().alias('check'))).join(TagDish,JOIN.LEFT_OUTER, on=((TagDish.tag_id==Tag.id) & (TagDish.dish_id==dish_id)))
     return render_template('admin/tagdish_edit.html',dish=dish, tags=tags)
 
 @app.route('/admin/tagdish_edit/save/<int:dish_id>', methods=['POST'])
 @login_required
 def admin_tagdish_save(dish_id):
-    tags = Tag.select(Tag.tag_id,Tag.name, (~TagDish.TagDish_id.is_null().alias('check'))).join(TagDish,JOIN.LEFT_OUTER, on=((TagDish.tag_id==Tag.tag_id) & (TagDish.dish_id==dish_id)))
+    """ Метод сохранения тегов у блюда.
+        Если галочка снята, то убираем запись из таблицы, а если галочка стоит, то проверяем была-ли она до этого и если нет, то добавляем в таблицу"""
+    tags = Tag.select(Tag.id,Tag.name, (~TagDish.id.is_null().alias('check'))).join(TagDish,JOIN.LEFT_OUTER, on=((TagDish.tag_id==Tag.id) & (TagDish.dish_id==dish_id)))
     if tags:
         for tag in tags:
             i=request.form.get(tag.name)
             if i=='1':
                 j=TagDish.get_or_none((TagDish.dish_id==dish_id)&(TagDish.tag_id==tag.tag_id))
                 if j is None:
-                    TagDish.create(dish_id=dish_id,tag_id=tag.tag_id)
+                    TagDish.create(dish_id=dish_id,tag_id=tag.id)
             else:
-                query = TagDish.delete().where((TagDish.dish_id == dish_id) & (TagDish.tag_id == tag.tag_id))
+                query = TagDish.delete().where((TagDish.dish_id == dish_id) & (TagDish.tag_id == tag.id))
                 query.execute()
     return redirect(url_for('admin_dishes'))

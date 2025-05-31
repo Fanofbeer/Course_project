@@ -5,7 +5,7 @@
     <div class="content">
 <h1>Теги блюда {{ dish.name }}</h1>
 
-    <form method="POST" action="/admin/tagdish_edit/save/{{ dish.dish_id }}" style="display:inline;">
+    <form method="POST" action="/admin/tagdish_edit/save/{{ dish.id }}" style="display:inline;">
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
     <ul>
         {% for tag in tags %}

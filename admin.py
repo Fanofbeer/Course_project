@@ -1,3 +1,7 @@
+""" Проверяем создан ли пользователь для веб-админки.
+    Если нет, то создаем с паролем из .env.
+    Следом загружаем тестовые данные. """
+
 from db.models import AdminUser, db
 from werkzeug.security import generate_password_hash
 import os

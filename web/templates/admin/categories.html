@@ -20,7 +20,7 @@
         {% for cat in categories %}
         <li>
             <p>{{ cat.rank }}- {{ cat.name }}</p>
-            <form method="POST" action="/admin/categories/delete/{{ cat.category_id }}" style="display:inline;">
+            <form method="POST" action="/admin/categories/delete/{{ cat.id }}" style="display:inline;">
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                 <button type="submit" class="button">Удалить</button>
             </form>
