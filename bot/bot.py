@@ -28,7 +28,6 @@ def make_row_keyboard(items: list[str]) -> ReplyKeyboardMarkup:
 f_list = ["Зарегистрироваться"]
 main_list = ["Блюда по категориям","Блюда по тегам","Все блюда","Поиск по названию","Выход"]
 
-
 class Form(StatesGroup):
     """ Класс состояний"""
     reg = State()
@@ -68,7 +67,7 @@ async def register_user(message: types.Message,state: FSMContext):
         await message.reply("Вы уже зарегистрированы!",reply_markup=make_row_keyboard(main_list))
     await state.set_state(Form.main_menu)
 
-@dp.message(Form.main_menu,F.text.in_(main_list))
+@dp.message(Form.main_menu)
 async def main_menu(message: Message, state: FSMContext):
     """ Главное меню. Варианты взаимодействия:
     Отменить регистрацию - удаление пользователя из базы данных
@@ -100,7 +99,7 @@ async def main_menu(message: Message, state: FSMContext):
         await state.set_state(Form.search_by_name)
         await message.reply("Поиск по названию:", reply_markup=make_row_keyboard(["Назад"]))
 
-@dp.message(Form.cat,F.text.in_(categ_menu()))
+@dp.message(Form.cat)
 async def cat_menu(message: Message, state: FSMContext):
     """ Меню выбора котегорий. Варианты взаимодействия:
     Назад - возвращение в главное меню
@@ -143,7 +142,7 @@ async def cat_dish_menu(message: Message, state: FSMContext):
         await message.reply('Неизвестное блюдо')
 
 
-@dp.message(Form.tag,F.text.in_(tags_menu()))
+@dp.message(Form.tag)
 async def tag_menu(message: Message, state: FSMContext):
     """ Меню выбора тега. Варианты взаимодействия:
     Назад - возвращение в главное меню

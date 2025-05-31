@@ -8,3 +8,14 @@ from db.request import *
 # Tag.delete().execute()
 # User.delete().execute()
 
+dish = Category.select().dicts()
+for d in dish:
+    print(d)
+
+
+dish_list = [item.name for item in dish_by_category(id_by_name(Category,'Бульоны'))]
+for d in dish_list:
+    print(d)
+
+for d in categ_menu():
+    print(d)

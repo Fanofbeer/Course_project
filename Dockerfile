@@ -12,9 +12,3 @@ WORKDIR /app
 COPY requirements.txt .
 #
 RUN pip install -r requirements.txt
-#
-## Копируем исходный код приложения в контейнер
-
-COPY . .
-
-RUN python admin.py

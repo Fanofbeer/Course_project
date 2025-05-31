@@ -1,9 +1,14 @@
 services:
+  bot:
+    volumes:
+      - .:/app
+    build: .
+    command: sh -c "python bot_start.py"
   web:
     volumes:
       - .:/app
     build: .
-    command: sh -c "python main.py"
+    command: sh -c "python web_admin.py"
     ports:
       - "$PORT:$PORT"
 
