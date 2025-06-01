@@ -137,9 +137,9 @@ async def cat_dish_menu(message: Message, state: FSMContext):
         i = id_by_name(Dish, message.text)
         if i>0:
             dish = Dish.get_by_id(i)
-            await message.reply(dish.name+'\n'+dish.ingredients+'\n'+dish.recipe)
+            await message.reply(dish.name+'\n'+dish.ingredients+'\n'+dish.recipe,reply_markup=make_row_keyboard(user_data["dish_list"]))
     else:
-        await message.reply('Неизвестное блюдо')
+        await message.reply('Неизвестное блюдо',reply_markup=make_row_keyboard(user_data["dish_list"]))
 
 
 @dp.message(Form.tag)
@@ -192,9 +192,9 @@ async def tag_dish_menu(message: Message, state: FSMContext):
         i = id_by_name(Dish, message.text)
         if i>0:
             dish = Dish.get_by_id(i)
-            await message.reply(dish.name+'\n'+dish.ingredients+'\n'+dish.recipe)
+            await message.reply(dish.name+'\n'+dish.ingredients+'\n'+dish.recipe,reply_markup=make_row_keyboard(user_data["dish_list"]))
     else:
-        await message.reply('Неизвестное блюдо')
+        await message.reply('Неизвестное блюдо',reply_markup=make_row_keyboard(user_data["dish_list"]))
 
 @dp.message(Form.all_dish)
 async def all_dish_menu(message: Message, state: FSMContext):
@@ -210,9 +210,9 @@ async def all_dish_menu(message: Message, state: FSMContext):
         i = id_by_name(Dish, message.text)
         if i>0:
             dish = Dish.get_by_id(i)
-            await message.reply(dish.name+'\n'+dish.ingredients+'\n'+dish.recipe)
+            await message.reply(dish.name+'\n'+dish.ingredients+'\n'+dish.recipe,reply_markup=make_row_keyboard(user_data["dish_list"]))
     else:
-        await message.reply('Неизвестное блюдо')
+        await message.reply('Неизвестное блюдо',reply_markup=make_row_keyboard(user_data["dish_list"]))
 
 @dp.message(Form.search_by_name)
 async def search_by_name_menu(message: Message, state: FSMContext):
@@ -232,7 +232,7 @@ async def search_by_name_menu(message: Message, state: FSMContext):
             await state.set_state(Form.find_dish)
             await message.reply('Найденные блюда:', reply_markup=make_row_keyboard(dish_list))
         else:
-            await message.reply('Блюда не найдены')
+            await message.reply('Блюда не найдены',reply_markup=make_row_keyboard(dish_list))
 
 @dp.message(Form.find_dish)
 async def find_dish(message: Message, state: FSMContext):
@@ -251,8 +251,8 @@ async def find_dish(message: Message, state: FSMContext):
         i = id_by_name(Dish, message.text)
         if i>0:
             dish = Dish.get_by_id(i)
-            await message.reply(dish.name+'\n'+dish.ingredients+'\n'+dish.recipe)
+            await message.reply(dish.name+'\n'+dish.ingredients+'\n'+dish.recipe,reply_markup=make_row_keyboard(user_data["dish_list"]))
     else:
-        await message.reply('Неизвестное блюдо')
+        await message.reply('Неизвестное блюдо',reply_markup=make_row_keyboard(user_data["dish_list"]))
 
 
